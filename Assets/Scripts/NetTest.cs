@@ -32,6 +32,6 @@ public class NetTest : MonoBehaviourPunCallbacks
     {
         // マッチング後、ランダムな位置に自分自身のネットワークオブジェクトを生成する
         var v = new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f));
-        PhotonNetwork.Instantiate("Prefabs/Cube", v, Quaternion.identity);
+        PhotonNetwork.Instantiate("Prefabs/BallThrower", v, Quaternion.identity);
     }
 }
