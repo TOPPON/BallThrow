@@ -31,7 +31,7 @@ public class NetTest : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         // マッチング後、ランダムな位置に自分自身のネットワークオブジェクトを生成する
-        var v = new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f));
-        PhotonNetwork.Instantiate("Prefabs/Cube", v, Quaternion.identity);
+        var v = new Vector3(Random.Range(-3f, 3f), Random.Range(3f, 13f));
+        PhotonNetwork.Instantiate("Prefabs/Ball", v, Quaternion.identity);
     }
 }
