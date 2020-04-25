@@ -7,7 +7,7 @@ using Photon.Realtime;
 public class BallThrower : MonoBehaviourPunCallbacks,IPunObservable
 {
     private Vector3 velocity;
-    private bool Throwflag;
+    private bool throwflag;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,30 +17,39 @@ public class BallThrower : MonoBehaviourPunCallbacks,IPunObservable
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonUp(1))
+        if(photonView.IsMine)
         {
-            Throwflag = true;
-            velocity = Input.acceleration;
-        }
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            Throwflag = true;
-            velocity = new Vector3(0,5,3);
+            if(Input.GetMouseButtonUp(1))
+            {
+                velocity = Input.acceleration;
+                throwflag = true;
+            }
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                velocity = new Vector3(0,3,5);
+                throwflag = true;
+
+            }
         }
     }
-    void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if(stream.IsWriting)
         {
-            stream.SendNext(Throwflag);
             stream.SendNext(velocity);
-            if (Throwflag)
-            {
-                Throwflag = false;
-            }
+            stream.SendNext(throwflag);
+            if (throwflag) throwflag = false;
         }
         else
         {
+            velocity = (Vector3)stream.ReceiveNext();
+            throwflag = (bool)stream.ReceiveNext();
+            if(throwflag)
+            {
+                Instantiate((GameObject)Resources.Load("Prefabs/Ball"),new Vector3(0,-5,3),Quaternion.identity).GetComponent<Rigidbody>().velocity = velocity ;
+            }
         }
     }
+    
 }
