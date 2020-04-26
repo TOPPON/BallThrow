@@ -37,18 +37,20 @@ public class BallThrower : MonoBehaviourPunCallbacks,IPunObservable
     {
         if(stream.IsWriting)
         {
-            stream.SendNext(velocity);
+            //stream.SendNext(velocity);
             stream.SendNext(throwflag);
             if (throwflag) throwflag = false;
+            Debug.Log(throwflag);
         }
         else
         {
-            velocity = (Vector3)stream.ReceiveNext();
+            velocity = new Vector3(0,3,5); //(Vector3)stream.ReceiveNext();
             throwflag = (bool)stream.ReceiveNext();
             if(throwflag)
             {
                 Instantiate((GameObject)Resources.Load("Prefabs/Ball"),new Vector3(0,3,-5),Quaternion.identity).GetComponent<Rigidbody>().velocity = velocity ;
             }
+            Debug.Log(throwflag);
         }
     }
     
