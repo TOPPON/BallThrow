@@ -37,14 +37,14 @@ public class BallThrower : MonoBehaviourPunCallbacks,IPunObservable
     {
         if(stream.IsWriting)
         {
-            //stream.SendNext(velocity);
+            stream.SendNext(velocity);
             stream.SendNext(throwflag);
             if (throwflag) throwflag = false;
             Debug.Log(throwflag);
         }
         else
         {
-            velocity = new Vector3(0,3,5); //(Vector3)stream.ReceiveNext();
+            velocity =(Vector3)stream.ReceiveNext();
             throwflag = (bool)stream.ReceiveNext();
             if(throwflag)
             {
