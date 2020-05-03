@@ -19,7 +19,7 @@ public class BallThrower : MonoBehaviourPunCallbacks,IPunObservable
     {
         if(photonView.IsMine)
         {
-            if(Input.GetMouseButtonUp(1))
+            if(Input.touches[0].phase==TouchPhase.Ended)
             {
                 velocity = Input.acceleration;
                 throwflag = true;
