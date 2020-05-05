@@ -21,7 +21,7 @@ public class BallThrower : MonoBehaviourPunCallbacks,IPunObservable
         {
             if(Input.touches[0].phase==TouchPhase.Ended)
             {
-                velocity = Input.acceleration;
+                velocity =Input.gyro.userAcceleration;
                 throwflag = true;
             }
             if (Input.GetKeyDown(KeyCode.Q))
