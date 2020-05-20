@@ -7,6 +7,7 @@ using Photon.Realtime;
 public class BallThrower : MonoBehaviourPunCallbacks,IPunObservable
 {
     private Vector3 velocity;
+    private Quaternion tilt;
     private bool throwflag;
     // Start is called before the first frame update
     void Start()
@@ -21,8 +22,9 @@ public class BallThrower : MonoBehaviourPunCallbacks,IPunObservable
         {
             if(Input.touches[0].phase==TouchPhase.Ended)
             {
-                velocity =Input.gyro.userAcceleration;
+                //velocity =Input.gyro.userAcceleration;
                 throwflag = true;
+                tilt = Input.gyro.attitude;
             }
             if (Input.GetKeyDown(KeyCode.Q))
             {
@@ -37,18 +39,18 @@ public class BallThrower : MonoBehaviourPunCallbacks,IPunObservable
     {
         if(stream.IsWriting)
         {
-            stream.SendNext(velocity);
+            stream.SendNext(tilt);
             stream.SendNext(throwflag);
             if (throwflag) throwflag = false;
             Debug.Log(throwflag);
         }
         else
         {
-            velocity =(Vector3)stream.ReceiveNext();
+            tilt =(Quaternion)stream.ReceiveNext();
             throwflag = (bool)stream.ReceiveNext();
             if(throwflag)
             {
-                Instantiate((GameObject)Resources.Load("Prefabs/Ball"),new Vector3(0,3,-5),Quaternion.identity).GetComponent<Rigidbody>().velocity = velocity ;
+                Instantiate((GameObject)Resources.Load("Prefabs/Ball"),new Vector3(0,3,-5),Quaternion.identity).GetComponent<Rigidbody>().velocity = tilt*new Vector3(0,0,5) ;
             }
             Debug.Log(throwflag);
         }
