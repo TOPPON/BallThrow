@@ -435,11 +435,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2398884e3faf314aacb3f4dc6961a0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acceraration: {fileID: 1760227686}
   angle: {fileID: 1458870297}
   SpeedResult: {fileID: 428336861}
-  speeddisp: {fileID: 223974228}
-  nowPositiondisp: {fileID: 1048216304}
 --- !u!1 &511940543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1043,10 +1040,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 50
+    m_FontSize: 13
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 5
+    m_MinSize: 1
     m_MaxSize: 50
     m_Alignment: 4
     m_AlignByGeometry: 0
